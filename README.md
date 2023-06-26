@@ -29,6 +29,8 @@ Short project description: This PHP project is a web application that provides a
 2. Explore the various functionalities of the application and manage the data effectively.
 
 ## Contributing
+.Ahmad Bakkar
+.Abdulkader kodah
 
 Contributions are welcome! If you have any ideas, improvements, or bug fixes, feel free to submit a pull request. Please ensure that your contributions align with the project's coding standards and guidelines.
 
