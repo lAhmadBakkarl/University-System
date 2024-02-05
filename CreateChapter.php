@@ -2,6 +2,7 @@
 include('session.php');
 
 $courses = $courseList->getAllCourses();
+print_r($courses);
 
 if (isset($_POST['submit'])) {
     $courseName = $_POST['course'];
@@ -39,7 +40,7 @@ if (isset($_POST['submit'])) {
         <label for="course">Course:</label>
         <select name="course" id="course">
             <?php foreach ($courses as $course) { ?>
-                <option value="<?php echo $course->name; ?>"><?php echo $course->name; ?></option>
+                <option value="<?php echo $course->getName(); ?>"><?php echo $course->getName(); ?></option>
             <?php } ?>
         </select>
         <br>

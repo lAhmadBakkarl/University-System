@@ -37,7 +37,7 @@ if (isset($_POST['back'])) {
                 echo "<tr><th>Course</th><th>Grade</th></tr>";
 
                 foreach ($courses as $course) {
-                    $grade = $course->getGradeByStudent($student);
+                    $grade = $course->getGrade($student);
                     if ($grade !== null) {
                         echo "<tr><td>{$course->getName()}</td><td>$grade</td></tr>";
                         $grades[] = $grade;

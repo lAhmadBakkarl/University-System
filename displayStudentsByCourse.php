@@ -1,7 +1,7 @@
 <?php
 include_once("session.php");
 
-if (isset($_POST['back'])) {
+if (isset($_GET['back'])) {
     header('location:index.php');
 }
 
@@ -31,11 +31,12 @@ if (isset($_GET['courseID'])) {
     <div class="container">
         <form action="" method="get">
             Choose a course:     
-            <select name="courseID" required>
+            <select name="courseID">
+                <option value="">choose a course</option>
                 <?php
                 foreach ($courses as $con) {
-                    $selected = isset($_GET['courseID']) && $_GET['courseID'] == $con->id ? 'selected' : '';
-                    echo '<option value="' . $con->id . '" ' . $selected . '>' . $con->name . '</option>';
+                    $selected = isset($_GET['courseID']) && $_GET['courseID'] == $con->getId() ? 'selected' : '';
+                    echo '<option value="' . $con->getId() . '" ' . $selected . '>' . $con->getName() . '</option>';
                 }
                 ?>
             </select>
@@ -43,13 +44,15 @@ if (isset($_GET['courseID'])) {
             <button type="submit">Display</button>
             <button type="submit" name="back">Back to main</button>
         </form>
+    
+       
 
         <?php
         if (!empty($students)) {
-            echo "<table>";
+            echo "<table border = 1>";
             echo "<th>ID</th>";
-            echo "<th>First Name</th>";
-            echo "<th>Last Name</th>";
+            echo "<th>Name</th>";
+          
 
             $count = count($students);
             $pages = ceil($count / $perpage);
@@ -59,9 +62,9 @@ if (isset($_GET['courseID'])) {
 
             foreach ($allStd as $val) {
                 echo "<tr>";    
-                echo "<td>".$val->id."</td>";
-                echo "<td>".$val->firstName."</td>";
-                echo "<td>".$val->lastName."</td>";
+                echo "<td>".$val->getId()."</td>";
+                echo "<td>".$val->getFullName()."</td>";
+               
                 echo "</tr>";   
             }
 

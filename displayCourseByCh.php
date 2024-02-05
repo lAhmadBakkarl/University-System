@@ -1,7 +1,7 @@
 <?php
 include_once('session.php');
 
-$courseList = $_SESSION['CourseList'];
+$courseList = $_SESSION['courseList'];
 $selectedCourse = null;
 
 if (isset($_POST['courseName'])) {
@@ -13,7 +13,7 @@ if (isset($_POST['deleteChapter'])) {
     if ($selectedCourse != null && $selectedCourse->chapterExists($chapterToDelete)) {
         $selectedCourse->deleteChapter($chapterToDelete);
         // Save the updated course list in the session
-        $_SESSION['CourseList'] = $courseList;
+        $_SESSION['courseList'] = $courseList;
     }
     header('Location: displayCourseByCh.php');
     exit;
@@ -41,18 +41,18 @@ if (isset($_POST['modifyChapter'])) {
     <form method="post">
         <select name="courseName">
             <?php foreach ($courseList->getAllCourses() as $course): ?>
-                <option value="<?php echo $course->name; ?>"
-                    <?php if (isset($selectedCourse) && $selectedCourse->name == $course->name): ?>
+                <option value="<?php echo $course->getName(); ?>"
+                    <?php if (isset($selectedCourse) && $selectedCourse->getName() == $course->getName()): ?>
                         selected
                     <?php endif; ?>
-                ><?php echo $course->name; ?></option>
+                ><?php echo $course->getName(); ?></option>
             <?php endforeach; ?>
         </select>
         <button type="submit">Display</button>
     </form>
 
     <?php if (isset($selectedCourse)): ?>
-        <h2>Chapters for <?php echo $selectedCourse->name; ?>:</h2>
+        <h2>Chapters for <?php echo $selectedCourse->getName(); ?>:</h2>
         <table border="1">
             <tr>
                 <th>Chapter Name</th>
@@ -61,16 +61,16 @@ if (isset($_POST['modifyChapter'])) {
             </tr>
             <?php foreach ($selectedCourse->getChapters() as $chapter): ?>
                 <tr>
-                    <td><?php echo $chapter->name; ?></td>
+                    <td><?php echo $chapter->getName(); ?></td>
                     <td>
                         <form method="post" onsubmit="return confirm('Are you sure you want to delete this chapter?')">
-                            <input type="hidden" name="deleteChapter" value="<?php echo $chapter->name; ?>">
+                            <input type="hidden" name="deleteChapter" value="<?php echo $chapter->getName(); ?>">
                             <button type="submit">Delete</button>
                         </form>
                     </td>
                     <td>
                         <form method="post">
-                            <input type="hidden" name="modifyChapter" value="<?php echo $chapter->name; ?>">
+                            <input type="hidden" name="modifyChapter" value="<?php echo $chapter->getName(); ?>">
                             <button type="submit">Modify</button>
                         </form>
                     </td>

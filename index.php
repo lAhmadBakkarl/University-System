@@ -1,20 +1,7 @@
 <?php
 include("session.php");
+print_r($_SESSION);
 
-if (isset($_POST['resetStudents'])) {
-    // Loop through each student and unregister them from their courses
-    foreach ($studentList->studentList as $student) {
-        $courses = $student->getCourses();
-        foreach ($courses as $course) {
-            unset($course->grades[$student->id]); // Remove the entry from the grades array
-        }
-    }
-    unset($studentList->studentList);
-}
-
-if (isset($_POST['resetCourses'])) {
-    unset($courseList->coursesList);
-}
 ?>
 
 <!DOCTYPE html>
@@ -32,19 +19,17 @@ if (isset($_POST['resetCourses'])) {
     <a href="addStudent.php">Add student</a><br><br>
     <a href="addCourse.php">Add Course</a><br><br>
 
-    <a href="registerStudentToCourse.php">Register to courses</a><br><br>
-    <a href="registerGradesForStd.php">Enter grades for Course</a><br><br>
+    <a href="registerStudentsToCourse.php">Register to courses</a><br><br>
+    <a href="enterGradesForStd.php">Enter grades for Course</a><br><br>
 
     <a href="displayCourses.php">Display all courses</a><br><br>
     <a href="displayStudentsByCourse.php">Display all students by course</a><br><br>
-    <a href="displayStudentsByClass.php">Display all students by class</a><br><br>
+    <a href="displayStudentsByMajor.php">Display all students by major</a><br><br>
     <a href="displayGradesOfStd.php">Display grades of student</a><br><br>
     <a href="displaygradebycourse.php">Display grades by course</a><br><br>
-
-    <form action="index.php" method="post">
+    <a href="Chapter.php">Chapters</a><br><br>
         <button type="submit" name="resetStudents">Reset Students</button>
         <button type="submit" name="resetCourses">Reset Courses</button>
-    </form>
     </div>
 </body>
 </html>

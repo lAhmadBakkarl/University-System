@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 foreach ($students as $student) {
                     $grade = $course->getGrade($student);
                     echo "<tr>";
-                    echo "<td>{$student->getFirstName()} {$student->getLastName()}</td>";
+                    echo "<td>{$student->getFullName()}</td>";
                     echo "<td>" . ($grade !== null ? $grade : 'N/A') . "</td>";
                     echo "</tr>";
 

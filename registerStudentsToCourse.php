@@ -29,17 +29,21 @@ if (isset($_POST['back'])) {
 </head>
 <body>
     <div class="left-container">
-        <form method="post" action="registerStudentToCourse.php">
-            <table>
+        <form method="post" action="registerStudentsToCourse.php">
+            <table border=1>
                 <tr>
                     <th>Student</th>
+                    
                     <?php
                     $courses = $courseList->getAllCourses();
                     foreach ($courses as $course) {
-                        echo "<th>$course->getName()</th>";
+                     
+                        echo "<th>".$course->getName()."</th>";
                     }
                     ?>
                 </tr>
+               
+               
                 <?php
                 $students = $studentList->getAllStudents();
                 foreach ($students as $student) {
@@ -59,7 +63,7 @@ if (isset($_POST['back'])) {
     
     <div class="right-container">
         <?php
-        echo "<table>";
+        echo "<table border = 1>";
         echo "<tr>";
         echo "<th>Student Name</th>";
         echo "<th>Registered Courses</th>";

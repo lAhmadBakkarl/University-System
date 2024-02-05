@@ -6,37 +6,43 @@ interface CourseComponent {
 class Document implements CourseComponent {
     private $name;
     private $category;
-    private $filename;
-    private $filetype;
-    private $filesize;
-    private $filetmpname;
+    private $fileName;
+    private $fileType;
+    private $fileSize;
+    private $fileTmpName;
 
-    public function __construct($name, $category, $filename, $filetype, $filesize, $filetmpname) {
+    public function __construct($name, $category, $fileName, $fileType, $fileSize, $fileTmpName) {
         $this->name = $name;
         $this->category = $category;
-        $this->filename = $filename;
-        $this->filetype = $filetype;
-        $this->filesize = $filesize;
-        $this->filetmpname = $filetmpname;
+        $this->fileName = $fileName;
+        $this->fileType = $fileType;
+        $this->fileSize = $fileSize;
+        $this->fileTmpName = $fileTmpName;
     }
 
     public function getName() {
         return $this->name;
     }
-
     public function setName($name) {
         $this->name = $name;
     }
 
-    public function getCategory() {
-        return $this->category;
+    public function getFileName() {
+        return $this->fileName;
     }
-
     public function setCategory($category) {
         $this->category = $category;
     }
+    public function getCategory() {
+        return $this->category;
+    }
+    public function getFileSize() {
+        $this->fileSize;
+    }
+    public function getFileType() {
+        $this->fileType;
+    }
 
-    // ... Implement getter and setter methods for other properties
 }
 
 class Chapter implements CourseComponent {
@@ -79,16 +85,57 @@ class Chapter implements CourseComponent {
 class Course {
     private $id;
     private $name;
-    private $grades = [];
     private $year;
+    private $grades = [];
+    private $credits;
     private $components = [];
+    private $chapters;
 
-    public function __construct($id, $name, $year) {
+    public function __construct($id, $name, $credits, $year) {
         $this->id = $id;
         $this->name = $name;
-        $this->year = $year;
+        $this->credits = $credits;
+        $this->chapters = array();
+    }
+    
+
+    public function getId() {
+        return $this->id;
+    }
+    public function getName() {
+        return $this->name;
+    }
+    public function getYear() {
+        return $this->year;
+    }
+    public function getCredits() {
+        return $this->credits;
+    }
+    public function addChapter($chapter) {
+        $this->chapters[] = $chapter;
     }
 
+    public function getChapters() {
+        return $this->chapters;
+    }
+    public function chapterExists($chapterName) {
+        foreach ($this->chapters as $chapter) {
+            if ($chapter->getName() === $chapterName) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+    public function setId($id) {
+        $this->id = $id;
+    }
+    public function setCredits($credits) {
+        $this->credits = $credits;
+    }
     public function registerGrade(Student $student, $grade) {
         $this->grades[$student->getId()] = $grade;
     }
@@ -133,18 +180,18 @@ class Course {
 }
 
 class CourseListClass {
-    private $courses = [];
+    private $coursesList = [];
 
     public function addCourse(Course $course) {
-        $this->courses[] = $course;
+        $this->coursesList[] = $course;
     }
 
     public function getAllCourses() {
-        return $this->courses;
+        return $this->coursesList;
     }
 
     public function getCourseById($id) {
-        foreach ($this->courses as $course) {
+        foreach ($this->coursesList as $course) {
             if ($course->getId() == $id) {
                 return $course;
             }
@@ -153,7 +200,7 @@ class CourseListClass {
     }
 
     public function getCourseByName($name) {
-        foreach ($this->courses as $course) {
+        foreach ($this->coursesList as $course) {
             if ($course->getName() === $name) {
                 return $course;
             }
@@ -164,44 +211,34 @@ class CourseListClass {
 
 class Student {
     private $id;
-    private $firstName;
-    private $lastName;
-    private $class;
+    private $fullName;
+    private $major;
     private $courses = [];
 
-    public function __construct($id, $firstName, $lastName, $class) {
+    public function __construct($id, $firstName, $lastName, $major) {
         $this->id = $id;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->class = $class;
+        $this->fullName = $firstName." ".$lastName;
+        $this->major = $major;
     }
 
     public function getId() {
         return $this->id;
     }
 
-    public function getFirstName() {
-        return $this->firstName;
+    public function setFullName($fullName) {
+        $this->fullName = $fullName;
     }
 
-    public function setFirstName($firstName) {
-        $this->firstName = $firstName;
+    public function getFullName() {
+        return $this->fullName;
     }
 
-    public function getLastName() {
-        return $this->lastName;
+    public function getMajor() {
+        return $this->major;
     }
 
-    public function setLastName($lastName) {
-        $this->lastName = $lastName;
-    }
-
-    public function getClass() {
-        return $this->class;
-    }
-
-    public function setClass($class) {
-        $this->class = $class;
+    public function setmajor($major) {
+        $this->major = $major;
     }
 
     public function registerCourse(Course $course) {
@@ -214,6 +251,8 @@ class Student {
         return $this->courses;
     }
 }
+
+
 
 class StudentListClass {
     private $studentList = [];
@@ -238,9 +277,8 @@ class StudentListClass {
                 }
             }
         }
-
         return $students;
-    }
+    }    
 
     public function getStudentById($id) {
         foreach ($this->studentList as $student) {

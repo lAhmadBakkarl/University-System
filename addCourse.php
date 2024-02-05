@@ -15,6 +15,11 @@
             <input type="text" name="id" required>
             <label for="name">Name:</label>
             <input type="text" name="name" required>
+            <label for="credits">credits:</label>
+            <input type="text" name="credits" required>
+            <label for="year">year:</label>
+            <input type="text" name="year" required>
+
             <button type="submit" name="addCoursebtn">Add Course</button>
         </form>
     </div>

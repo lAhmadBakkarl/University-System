@@ -15,16 +15,17 @@ if (isset($_POST['back'])) {
 </head>
 <body>  
     <div class="container">
-        <form action="registerGradesForStd.php" method="post">
+        <form action="enterGradesForStd.php" method="post">
             Choose a course:     
             <select name="courseID" required>
                 <?php
                 $courses = $courseList->getAllCourses();
                 foreach ($courses as $con) {
-                    echo '<option value="' . $con->id . '">' . $con->name . '</option>';
+                    echo '<option value="' . $con->getId() . '">' . $con->getName() . '</option>';
                 }
                 ?>
             </select>
+            <br>
             <button type="submit" name="back">Back</button>
             <button type="submit" name="display">Display</button>
         </form>
@@ -32,18 +33,18 @@ if (isset($_POST['back'])) {
         <?php
         if (isset($_POST['display'])) {
             if (isset($_POST['courseID'])) {
-                $students = $courseList->getStudentsByCourse($_POST['courseID']);
+                $students = $studentList->getStudentsByCourse($_POST['courseID']);
 
-                echo "<form action='registerGradesForStd.php' method='post'>";
+                echo "<form action='enterGradesForStd.php' method='post'>";
                 echo "<table>
-                    <tr>
-                        <th>Student Name</th>
-                        <th>Grade</th>
-                    </tr>";
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Grade</th>
+                        </tr>";
 
                 foreach ($students as $student) {
                     echo "<tr>
-                        <td>" . $student->getFullName() . "</td>
+                        <td>".$student->getFullName()."</td>
                         <td>
                             <input type='number' name='grade[" . $student->getId() . "]' min='0' max='100' placeholder='Enter grade' required>
                         </td>

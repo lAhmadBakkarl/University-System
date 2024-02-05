@@ -15,7 +15,7 @@ if (isset($_POST['addStudentbtn'])) {
         $studentId = $_POST['id'];
         
         // Check if student ID already exists
-        if (isStudentIdExists($studentId, $studentList->getStudentList())) {
+        if (isStudentIdExists($studentId, $studentList->getAllStudents())) {
             echo "Student with ID $studentId already exists.";
         } else {
             $student = new Student($studentId, $_POST['firstName'], $_POST['lastName'], $_POST['class']);
@@ -40,14 +40,14 @@ function isCourseIdExists($id, $courseList) {
 }
 
 if (isset($_POST['addCoursebtn'])) {
-    if (!empty($_POST['id']) && !empty($_POST['Name'])) {
+    if (!empty($_POST['id']) && !empty($_POST['name']) && !empty($_POST['year'] && !empty($_POST['year']))) {
         $courseId = $_POST['id'];
         
         // Check if course ID already exists
-        if (isCourseIdExists($courseId, $courseList->getCoursesList())) {
+        if (isCourseIdExists($courseId, $courseList->getAllCourses())) {
             echo "Course with ID $courseId already exists.";
         } else {
-            $course = new Course($courseId, $_POST['Name']);
+            $course = new Course($courseId, $_POST['name'], $_POST['year'], $_POST['credits']);
             $courseList->addCourse($course);
             echo "Course added successfully.";
         }
