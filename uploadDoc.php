@@ -58,7 +58,7 @@ if (isset($_POST['add'])) {
     <p style="color: red;"><?php echo $errorMessage; ?></p>
 <?php } ?>
 
-<form action="addDocument.php?course=<?php echo $_GET['course']; ?>&chapter=<?php echo $_GET['chapter']; ?>" method="post" enctype="multipart/form-data">
+<form action="uploadDoc.php?course=<?php echo $_GET['course']; ?>&chapter=<?php echo $_GET['chapter']; ?>" method="post" enctype="multipart/form-data">
     <label for="name">Document Name:</label>
     <input type="text" name="name" id="name"><br><br>
 

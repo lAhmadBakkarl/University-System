@@ -60,6 +60,9 @@ class Chapter implements CourseComponent {
     public function addDocument(Document $document) {
         $this->documents[] = $document;
     }
+    public function getDocuments() {
+        return $this->documents;
+    }
 
     public function removeDocument(Document $document) {
         $index = array_search($document, $this->documents, true);
@@ -126,6 +129,24 @@ class Course {
         }
         return false;
     }
+    public function getChapterByName($chapterName) {
+        foreach ($this->chapters as $chapter) {
+            if ($chapter->getName() === $chapterName) {
+                return $chapter;
+            }
+        }
+        return null;
+    }
+
+
+    public function getChapterByIndex($index) {
+        if (isset($this->chapters[$index])) {
+            return $this->chapters[$index];
+        } else {
+            return null;
+        }
+    }
+
 
     public function setName($name) {
         $this->name = $name;
@@ -143,6 +164,8 @@ class Course {
     public function getGrade(Student $student) {
         return isset($this->grades[$student->getId()]) ? $this->grades[$student->getId()] : null;
     }
+
+   
 
     public function addComponent(CourseComponent $component) {
         $this->components[] = $component;
@@ -198,6 +221,11 @@ class CourseListClass {
         }
         return null;
     }
+    public function getChapter($course, $chapter) {
+        $course = $this->getCourseByName($course);
+        $chapter =  $course->getChapterByName($chapter);
+        return $chapter;
+    }
 
     public function getCourseByName($name) {
         foreach ($this->coursesList as $course) {
@@ -206,6 +234,23 @@ class CourseListClass {
             }
         }
         return null;
+    }
+    public function saveData() {
+        $target_dir = "C:/Users/Ahmad/Downloads/University-System-main/uploads";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        // Check if image file is a actual image or fake image
+        if(isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+        } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+        }
+        }
     }
 }
 

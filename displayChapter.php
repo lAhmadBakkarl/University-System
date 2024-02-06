@@ -3,7 +3,7 @@ include('session.php');
 
 // Back to main menu if back button is clicked
 if (isset($_POST['back'])) {
-    header('location: main.php');
+    header('location: index.php');
     exit;
 }
 
@@ -42,12 +42,12 @@ if (!isset($_GET['course']) || empty($_GET['course'])) {
     </tr>
     <?php foreach ($chapters as $chapter) { ?>
         <tr>
-            <td><a href="displayDocuments.php?course=<?php echo urlencode($courseName); ?>&chapter=<?php echo urlencode($chapter->name); ?>"><?php echo $chapter->name; ?></a></td>
+            <td><a href="displayDocuments.php?course=<?php echo urlencode($courseName); ?>&chapter=<?php echo urlencode($chapter->getName()); ?>"><?php echo $chapter->getName(); ?></a></td>
         </tr>
     <?php } ?>
 </table>
 
-<form action='displayCourses.php' method="post">
+<form action='index.php' method="post">
     <input type="submit" value="Back" name="back">
 </form>
 
